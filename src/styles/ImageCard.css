@@ -6,8 +6,8 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
   position: relative;
-  max-width: 300px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 340px;
 }
 
 .image-card:hover {
@@ -95,12 +95,15 @@
 
 /* Grid layout */
 .images-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px 22px;
+  padding: 40px 0 0 0;
+  justify-content: center;
+  justify-items: center;
 }
 
 .image-card.selected {
@@ -222,8 +225,8 @@
   overflow: hidden;
   transition: box-shadow 0.2s, transform 0.2s;
   position: relative;
+  width: 100%;
   max-width: 320px;
-  margin: 0 auto;
   border: 2px solid transparent;
   display: flex;
   flex-direction: column;
@@ -369,8 +372,8 @@
   border: 3.5px solid transparent;
   transition: box-shadow 0.22s, border 0.22s, transform 0.18s;
   position: relative;
+  width: 100%;
   max-width: 440px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(7px);
@@ -571,57 +574,50 @@
 
 .gallery-bg {
   min-height: 100vh;
-  width: 100vw;
-  background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+  width: 100%;
+  background: #fff;
   padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
 }
 
 .images-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-  padding: 40px 0 0 0;
+  width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-}
-
-@media (max-width: 1200px) {
-  .images-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-}
-@media (max-width: 900px) {
-  .images-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-  }
-}
-@media (max-width: 600px) {
-  .images-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 10px 0 0 0;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 32px;
+  padding: 40px 24px;
+  justify-content: center;
+  justify-items: center;
+  align-items: start;
 }
 
 .gallery-card {
   position: relative;
-  border-radius: 18px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.10), 0 1.5px 8px rgba(0,0,0,0.04);
-  transition: box-shadow 0.18s, transform 0.18s;
-  min-height: 220px;
-  aspect-ratio: 1/1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.10);
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-width: 260px;
+  margin: 0;
+  transition: box-shadow 0.18s, transform 0.18s;
 }
+
 .gallery-card:hover {
   box-shadow: 0 8px 32px rgba(25, 118, 210, 0.16), 0 4px 18px rgba(0,0,0,0.10);
   transform: translateY(-2px) scale(1.025);
 }
+
 .gallery-card.selected {
   box-shadow: 0 12px 40px rgba(67,160,71,0.13), 0 2px 12px rgba(25, 118, 210, 0.10);
   outline: 3px solid #43a047;
@@ -629,36 +625,38 @@
 
 .gallery-img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 4/3;
   object-fit: cover;
   display: block;
-  transition: filter 0.18s;
+  z-index: 1;
 }
+
 .gallery-card.selected .gallery-img {
   filter: brightness(0.92) saturate(1.1);
 }
 
 .gallery-select-btn {
   position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 2;
-  background: rgba(255,255,255,0.92);
-  border: 3px solid #e0e0e0;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  background: rgba(255,255,255,0.95);
+  border: 2px solid #e0e0e0;
   border-radius: 50%;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.7rem;
   color: #1976d2;
-  box-shadow: 0 2px 8px rgba(25,118,210,0.09);
+  box-shadow: 0 2px 8px rgba(25,118,210,0.12);
   cursor: pointer;
-  transition: background 0.2s, border 0.2s, color 0.2s, transform 0.18s;
-  outline: none;
+  transition: all 0.2s ease;
   padding: 0;
+  pointer-events: auto;
 }
+
 .gallery-select-btn.selected {
   background: #43a047;
   color: #fff;
@@ -669,25 +667,98 @@
 
 .gallery-download-btn {
   position: absolute;
-  bottom: 16px;
-  right: 16px;
-  background: rgba(255,255,255,0.92);
+  bottom: 64px;
+  right: 12px;
+  z-index: 3;
+  background: rgba(255,255,255,0.95);
   border: none;
-  border-radius: 12px;
-  width: 38px;
-  height: 38px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
-  color: #1976d2;
-  box-shadow: 0 1px 4px rgba(25, 118, 210, 0.07);
   cursor: pointer;
-  transition: background 0.18s, color 0.18s, transform 0.18s;
-  outline: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(25,118,210,0.12);
+  padding: 0;
+  pointer-events: auto;
 }
-.gallery-download-btn:hover, .gallery-download-btn:focus {
-  background: #1976d2;
-  color: #fff;
-  transform: scale(1.09);
+
+.gallery-download-btn svg {
+  color: #1976d2;
+  width: 26px;
+  height: 26px;
+}
+
+.gallery-download-btn:hover {
+  background: #e3f2fd;
+  transform: scale(1.13);
+  box-shadow: 0 8px 24px rgba(25, 118, 210, 0.22);
+  color: #125ea2;
+}
+
+.gallery-download-btn:active {
+  transform: scale(0.97);
+}
+
+.gallery-card-footer {
+  width: 100%;
+  background: #fff;
+  padding: 12px 16px;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gallery-card-alt {
+  font-size: 1.02rem;
+  color: #222;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gallery-card-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 0.98rem;
+  color: #888;
+  align-items: center;
+}
+
+.gallery-card-domain {
+  color: #1976d2;
+  font-weight: 500;
+}
+
+.gallery-card-dimensions {
+  background: #f1f5f9;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 0.97rem;
+  color: #555;
+}
+
+.gallery-select-btn > *, .gallery-download-btn > * {
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .images-grid {
+    padding: 24px 16px;
+    gap: 24px;
+  }
+  
+  .gallery-card {
+    border-radius: 14px;
+  }
+  
+  .gallery-select-btn,
+  .gallery-download-btn {
+    width: 36px;
+    height: 36px;
+  }
 } 

@@ -1,41 +1,47 @@
 import React from 'react';
-import { ImageData } from '../services/api';
-import '../styles/ImageModal.css';
+import './ImageModal.css';
 
 interface ImageModalProps {
-  image: ImageData;
+  image: {
+    src: string;
+    alt?: string;
+    width?: number;
+    height?: number;
+  };
   onClose: () => void;
 }
 
-export const ImageModal = ({ image, onClose }: ImageModalProps) => {
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose();
+export const ImageModal: React.FC<ImageModalProps> = ({ image, onClose }) => {
+  const domain = (() => {
+    try {
+      const u = new URL(image.src);
+      return u.hostname.replace(/^www\./, '');
+    } catch {
+      return '';
     }
-  };
+  })();
 
   return (
-    <div className="modal-backdrop" onClick={handleBackdropClick}>
-      <div className="modal-content">
-        <button className="close-button" onClick={onClose}>×</button>
-        <div className="modal-image-container">
-          <img 
-            src={image.src} 
-            alt={image.alt}
-            className="modal-image"
-          />
-        </div>
-        <div className="modal-info">
-          <h3>Información de la imagen</h3>
-          <div className="info-grid">
-            <div className="info-item">
-              <span className="label">Dimensiones:</span>
-              <span className="value">{image.width} x {image.height}</span>
+    <div className="image-modal-overlay" onClick={onClose}>
+      <div className="image-modal" onClick={e => e.stopPropagation()}>
+        <button className="close-btn" onClick={onClose} aria-label="Cerrar">×</button>
+        <div className="modal-content">
+          <div className="modal-info">
+            <h2 className="modal-alt">{image.alt || 'Sin descripción'}</h2>
+            <div className="modal-meta">
+              {domain && <span className="modal-domain">{domain}</span>}
+              {image.width && image.height && image.width > 1 && image.height > 1 && (
+                <span className="modal-dimensions">{image.width}x{image.height}px</span>
+              )}
             </div>
-            <div className="info-item">
-              <span className="label">Texto alternativo:</span>
-              <span className="value">{image.alt}</span>
+            <div className="modal-actions">
+              <a href={image.src} target="_blank" rel="noopener noreferrer" className="modal-action-btn">Abrir en nueva pestaña</a>
+              <a href={`/api/download?url=${encodeURIComponent(image.src)}`} className="modal-action-btn" download>Descargar</a>
+              <button className="modal-action-btn" onClick={() => {navigator.clipboard.writeText(image.src)}}>Copiar URL</button>
             </div>
+          </div>
+          <div className="modal-image-container">
+            <img src={image.src} alt={image.alt || 'Imagen'} className="modal-image" />
           </div>
         </div>
       </div>

@@ -24,43 +24,64 @@
   margin: 5px 0 0 0;
 }
 
-.download-button {
-  background: #4CAF50;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease;
-}
-
-.download-button:hover {
-  background: #45a049;
-}
-
-.see-more-container {
+.download-selected-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 12px 24px;
   display: flex;
   justify-content: center;
-  margin: 30px 0 10px 0;
+  align-items: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  z-index: 100;
 }
 
-.see-more-btn {
+.download-button {
   background: #1976d2;
   color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 12px 32px;
-  font-size: 1.1rem;
+  padding: 10px 24px;
+  font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
-  transition: background 0.2s, box-shadow 0.2s;
+  transition: background 0.2s;
+  min-width: 200px;
+}
+
+.download-button:hover:not(:disabled) {
+  background: #1565c0;
+}
+
+.download-button:disabled {
+  background: #90caf9;
+  cursor: not-allowed;
+}
+
+.see-more-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.see-more-btn {
+  background: #f8fafc;
+  color: #1976d2;
+  border: 1.5px solid #e3e8ee;
+  border-radius: 8px;
+  padding: 10px 32px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .see-more-btn:hover {
-  background: #125ea2;
-  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+  background: #e3f2fd;
+  border-color: #90caf9;
 }
 
 .images-grid {
@@ -93,7 +114,13 @@
     text-align: center;
   }
   
-  .download-selected-button {
+  .download-selected-bar {
+    padding: 8px 16px;
+  }
+  
+  .download-button {
     width: 100%;
+    padding: 8px 16px;
+    font-size: 0.95rem;
   }
 } 

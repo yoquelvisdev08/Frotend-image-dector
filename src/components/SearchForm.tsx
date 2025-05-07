@@ -37,7 +37,6 @@ export const SearchForm = ({ onSubmit, isLoading }: SearchFormProps) => {
       <form onSubmit={handleSubmit} className="search-form">
         <div className="input-group">
           <div className="url-field">
-            <span className="protocol-prefix">https://</span>
             <input
               type="url"
               value={url}

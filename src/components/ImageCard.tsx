@@ -18,6 +18,15 @@ export const ImageCard = ({ image, selected, onSelect, onView }: ImageCardProps)
   // Evitar que el click en el selector o el botón de descarga abra el modal
   const stopPropagation = (e: React.MouseEvent) => e.stopPropagation();
 
+  const domain = (() => {
+    try {
+      const u = new URL(image.src);
+      return u.hostname.replace(/^www\./, '');
+    } catch {
+      return '';
+    }
+  })();
+
   return (
     <div
       className={`gallery-card${selected ? ' selected' : ''}`}
@@ -41,18 +50,28 @@ export const ImageCard = ({ image, selected, onSelect, onView }: ImageCardProps)
           <MdAddCircleOutline size={32} color="#1976d2" />
         )}
       </button>
-      <a
+      <button 
         className="gallery-download-btn"
+        onClick={(e) => {
+          stopPropagation(e);
+          window.open(`/api/download?url=${encodeURIComponent(image.src)}`, '_blank');
+        }}
         title="Descargar"
-        href={image.src}
-        download
-        target="_blank"
-        rel="noopener noreferrer"
         aria-label="Descargar imagen"
-        onClick={stopPropagation}
       >
-        <FiDownload size={22} />
-      </a>
+        <FiDownload size={26} color="#1976d2" />
+      </button>
+      <div className="gallery-card-footer">
+        {image.alt && image.alt !== 'Imagen sin descripción' && (
+          <div className="gallery-card-alt" title={image.alt}>{image.alt}</div>
+        )}
+        <div className="gallery-card-meta">
+          {domain && <span className="gallery-card-domain">{domain}</span>}
+          {image.width && image.height && image.width > 1 && image.height > 1 && (
+            <span className="gallery-card-dimensions">{image.width}x{image.height}px</span>
+          )}
+        </div>
+      </div>
     </div>
   );
 }; 

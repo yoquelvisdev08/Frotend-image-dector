@@ -5,6 +5,7 @@ import '../styles/ImageResults.css';
 import { EmptyState } from './EmptyState';
 import { LoadingSpinner } from './LoadingSpinner';
 import { ImageData } from '../services/api';
+import JSZip from 'jszip';
 
 interface ImageResultsProps {
   images: ImageData[];
@@ -18,6 +19,7 @@ const PAGE_SIZE = 30;
 export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages }: ImageResultsProps) => {
   const [modalImage, setModalImage] = useState<ImageData | null>(null);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [downloading, setDownloading] = useState(false);
 
   const toggleImageSelection = (imageId: string) => {
     const newSelection = new Set(selectedImages);
@@ -31,7 +33,49 @@ export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages 
 
   const handleDownloadSelected = async () => {
     const selectedImagesArray = images.filter(img => selectedImages.has(img.id));
-    // Implementar lógica de descarga
+    if (selectedImagesArray.length === 0) return;
+    setDownloading(true);
+    try {
+      if (selectedImagesArray.length === 1) {
+        // Descargar una sola imagen usando el endpoint backend
+        const url = `/api/download?url=${encodeURIComponent(selectedImagesArray[0].src)}`;
+        window.open(url, '_blank');
+      } else {
+        // Descargar varias como ZIP
+        const zip = new JSZip();
+        const domain = (() => {
+          try {
+            const u = new URL(selectedImagesArray[0].src);
+            return u.hostname.replace(/^www\./, '');
+          } catch {
+            return 'imagenes';
+          }
+        })();
+        await Promise.all(selectedImagesArray.map(async (img, i) => {
+          const response = await fetch(`/api/download?url=${encodeURIComponent(img.src)}`);
+          if (!response.ok) return;
+          const blob = await response.blob();
+          let ext = '';
+          try {
+            ext = img.src.split('.').pop()?.split('?')[0] || 'jpg';
+            if (ext.length > 5) ext = 'jpg';
+          } catch { ext = 'jpg'; }
+          zip.file(`imagen_${i + 1}.${ext}`, blob);
+        }));
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(zipBlob);
+        a.download = `${domain}.zip`;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          URL.revokeObjectURL(a.href);
+          a.remove();
+        }, 2000);
+      }
+    } finally {
+      setDownloading(false);
+    }
   };
 
   if (isLoading) {
@@ -44,6 +88,13 @@ export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages 
 
   return (
     <div className="gallery-bg">
+      {selectedImages.size > 0 && (
+        <div className="download-selected-bar">
+          <button className="download-button" onClick={handleDownloadSelected} disabled={downloading}>
+            {downloading ? 'Preparando descarga...' : `Descargar Seleccionadas (${selectedImages.size})`}
+          </button>
+        </div>
+      )}
       <div className="images-grid">
         {images.slice(0, visibleCount).map(image => (
           <ImageCard
