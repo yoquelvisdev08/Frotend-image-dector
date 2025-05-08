@@ -36,31 +36,33 @@ export const ImageCard = ({ image, selected, onSelect, onView }: ImageCardProps)
       aria-label="Ver detalles de la imagen"
       style={{ cursor: 'pointer' }}
     >
-      <img src={image.src} alt={image.alt || 'Imagen'} className="gallery-img" />
-      <button
-        className={`gallery-select-btn${selected ? ' selected' : ''}`}
-        onClick={e => { stopPropagation(e); onSelect(); }}
-        title={selected ? 'Quitar selección' : 'Seleccionar'}
-        aria-label={selected ? 'Quitar selección' : 'Seleccionar'}
-        type="button"
-      >
-        {selected ? (
-          <MdCheckCircle size={32} color="#fff" />
-        ) : (
-          <MdAddCircleOutline size={32} color="#1976d2" />
-        )}
-      </button>
-      <button 
-        className="gallery-download-btn"
-        onClick={(e) => {
-          stopPropagation(e);
-          window.open(`/api/download?url=${encodeURIComponent(image.src)}`, '_blank');
-        }}
-        title="Descargar"
-        aria-label="Descargar imagen"
-      >
-        <FiDownload size={26} color="#1976d2" />
-      </button>
+      <div className="gallery-img-container">
+        <img src={image.src} alt={image.alt || 'Imagen'} className="gallery-img" />
+        <button 
+          className="gallery-download-btn"
+          onClick={(e) => {
+            stopPropagation(e);
+            window.open(`/api/download?url=${encodeURIComponent(image.src)}`, '_blank');
+          }}
+          title="Descargar"
+          aria-label="Descargar imagen"
+        >
+          <FiDownload size={26} color="#1976d2" />
+        </button>
+        <button
+          className={`gallery-select-btn${selected ? ' selected' : ''}`}
+          onClick={e => { stopPropagation(e); onSelect(); }}
+          title={selected ? 'Quitar selección' : 'Seleccionar'}
+          aria-label={selected ? 'Quitar selección' : 'Seleccionar'}
+          type="button"
+        >
+          {selected ? (
+            <MdCheckCircle size={32} color="#fff" />
+          ) : (
+            <MdAddCircleOutline size={32} color="#1976d2" />
+          )}
+        </button>
+      </div>
       <div className="gallery-card-footer">
         {image.alt && image.alt !== 'Imagen sin descripción' && (
           <div className="gallery-card-alt" title={image.alt}>{image.alt}</div>

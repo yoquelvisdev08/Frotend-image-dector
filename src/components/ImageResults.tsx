@@ -20,6 +20,7 @@ export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages 
   const [modalImage, setModalImage] = useState<ImageData | null>(null);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [downloading, setDownloading] = useState(false);
+  const [allSelected, setAllSelected] = useState(false);
 
   const toggleImageSelection = (imageId: string) => {
     const newSelection = new Set(selectedImages);
@@ -29,6 +30,18 @@ export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages 
       newSelection.add(imageId);
     }
     onImageSelect(imageId);
+  };
+
+  const toggleSelectAll = () => {
+    if (allSelected) {
+      images.forEach(img => onImageSelect(img.id)); // Deselecciona todas
+      setAllSelected(false);
+    } else {
+      images.forEach(img => {
+        if (!selectedImages.has(img.id)) onImageSelect(img.id);
+      });
+      setAllSelected(true);
+    }
   };
 
   const handleDownloadSelected = async () => {
@@ -87,38 +100,43 @@ export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages 
   }
 
   return (
-    <div className="gallery-bg">
-      {selectedImages.size > 0 && (
-        <div className="download-selected-bar">
-          <button className="download-button" onClick={handleDownloadSelected} disabled={downloading}>
+    <>
+      {images.length > 0 && (
+        <div className="gallery-toolbar">
+          <button className="toolbar-btn download" onClick={handleDownloadSelected} disabled={downloading || selectedImages.size === 0}>
             {downloading ? 'Preparando descarga...' : `Descargar Seleccionadas (${selectedImages.size})`}
           </button>
-        </div>
-      )}
-      <div className="images-grid">
-        {images.slice(0, visibleCount).map(image => (
-          <ImageCard
-            key={image.id}
-            image={image}
-            selected={selectedImages.has(image.id)}
-            onSelect={() => toggleImageSelection(image.id)}
-            onView={() => setModalImage(image)}
-          />
-        ))}
-      </div>
-      {visibleCount < images.length && (
-        <div className="see-more-container">
-          <button className="see-more-btn" onClick={() => setVisibleCount(visibleCount + PAGE_SIZE)}>
-            Ver más
+          <button className="toolbar-btn select-all" onClick={toggleSelectAll}>
+            {allSelected ? 'Deseleccionar todo' : 'Seleccionar todo'}
           </button>
         </div>
       )}
-      {modalImage && (
-        <ImageModal
-          image={modalImage}
-          onClose={() => setModalImage(null)}
-        />
-      )}
-    </div>
+      <div className="gallery-bg">
+        <div className="images-grid">
+          {images.slice(0, visibleCount).map(image => (
+            <ImageCard
+              key={image.id}
+              image={image}
+              selected={selectedImages.has(image.id)}
+              onSelect={() => toggleImageSelection(image.id)}
+              onView={() => setModalImage(image)}
+            />
+          ))}
+        </div>
+        {visibleCount < images.length && (
+          <div className="see-more-container">
+            <button className="see-more-btn" onClick={() => setVisibleCount(visibleCount + PAGE_SIZE)}>
+              Ver más
+            </button>
+          </div>
+        )}
+        {modalImage && (
+          <ImageModal
+            image={modalImage}
+            onClose={() => setModalImage(null)}
+          />
+        )}
+      </div>
+    </>
   );
 }; 

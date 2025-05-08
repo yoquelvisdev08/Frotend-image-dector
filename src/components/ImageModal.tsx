@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FiCopy } from 'react-icons/fi';
 import './ImageModal.css';
 
 interface ImageModalProps {
@@ -12,6 +13,7 @@ interface ImageModalProps {
 }
 
 export const ImageModal: React.FC<ImageModalProps> = ({ image, onClose }) => {
+  const [copied, setCopied] = useState(false);
   const domain = (() => {
     try {
       const u = new URL(image.src);
@@ -20,6 +22,12 @@ export const ImageModal: React.FC<ImageModalProps> = ({ image, onClose }) => {
       return '';
     }
   })();
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(image.src);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
 
   return (
     <div className="image-modal-overlay" onClick={onClose}>
@@ -35,9 +43,13 @@ export const ImageModal: React.FC<ImageModalProps> = ({ image, onClose }) => {
               )}
             </div>
             <div className="modal-actions">
-              <a href={image.src} target="_blank" rel="noopener noreferrer" className="modal-action-btn">Abrir en nueva pestaña</a>
-              <a href={`/api/download?url=${encodeURIComponent(image.src)}`} className="modal-action-btn" download>Descargar</a>
-              <button className="modal-action-btn" onClick={() => {navigator.clipboard.writeText(image.src)}}>Copiar URL</button>
+              <a href={image.src} target="_blank" rel="noopener noreferrer" className="modal-action-btn primary">Abrir en nueva pestaña</a>
+              <a href={`/api/download?url=${encodeURIComponent(image.src)}`} className="modal-action-btn success" download>Descargar</a>
+              <button className={`modal-action-btn copy${copied ? ' copied' : ''}`} onClick={handleCopy}>
+                <FiCopy style={{marginRight: 8, verticalAlign: 'middle'}} />
+                Copiar URL
+              </button>
+              {copied && <span className="copy-feedback">¡URL copiada!</span>}
             </div>
           </div>
           <div className="modal-image-container">

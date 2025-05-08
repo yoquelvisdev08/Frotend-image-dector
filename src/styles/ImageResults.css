@@ -1,8 +1,13 @@
+body, .gallery-bg, .results-container, .images-grid {
+  background: var(--main-bg, #6c63ff) !important;
+}
+
 .results-container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  background: var(--main-bg, #6c63ff) !important;
 }
 
 .results-header {
@@ -91,6 +96,7 @@
   padding: 20px 0 0 0;
   max-width: 1200px;
   margin: 0 auto;
+  background: var(--main-bg, #6c63ff) !important;
 }
 
 .download-selected-button {
@@ -123,4 +129,90 @@
     padding: 8px 16px;
     font-size: 0.95rem;
   }
+}
+
+.gallery-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  width: 100vw;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: 0 2px 16px rgba(25, 118, 210, 0.10);
+  background: var(--main-bg, #6c63ff);
+  border-bottom: 1.5px solid #5a54c7;
+  padding: 0 24px 12px 24px;
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.gallery-bg {
+  padding-top: 70px;
+  background: var(--main-bg, #6c63ff) !important;
+}
+
+.toolbar-btn {
+  background: #f8fafc;
+  color: #1976d2;
+  border: 1.5px solid #e3e8ee;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s, box-shadow 0.18s;
+  box-shadow: 0 1px 4px rgba(25,118,210,0.06);
+  margin-bottom: 0;
+  display: inline-block;
+}
+.toolbar-btn.download {
+  background: #1976d2;
+  color: #fff;
+  border: 1.5px solid #1976d2;
+}
+.toolbar-btn.download:hover:not(:disabled) {
+  background: #125ea2;
+  color: #fff;
+  border-color: #125ea2;
+}
+.toolbar-btn.select-all {
+  background: #f8fafc;
+  color: #1976d2;
+  border: 1.5px solid #e3e8ee;
+}
+.toolbar-btn.select-all:hover {
+  background: #e3f2fd;
+  color: #125ea2;
+  border-color: #b3d6f7;
+}
+.toolbar-btn:disabled {
+  background: #e3e8ee;
+  color: #b0b8c1;
+  border-color: #e3e8ee;
+  cursor: not-allowed;
+}
+@media (max-width: 900px) {
+  .gallery-toolbar {
+    padding: 0 10px 10px 10px;
+    gap: 10px;
+    top: 0;
+  }
+  .gallery-bg {
+    padding-top: 60px;
+  }
+  .toolbar-btn {
+    padding: 8px 12px;
+    font-size: 0.97rem;
+  }
+}
+
+.nav-btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
 } 
