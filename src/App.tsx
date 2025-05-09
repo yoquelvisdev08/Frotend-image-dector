@@ -26,7 +26,7 @@ function HomePage() {
     <main className="min-h-[60vh] flex items-center justify-center">
       <div className="text-center space-y-4">
         <h1 className="text-5xl font-bold bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
-          Hello World
+      Hello World
         </h1>
         <p className="text-neutral-500 text-lg">
           Bienvenido a tu detector de imágenes
@@ -86,14 +86,14 @@ function ImageExtractorPage() {
           isLoading={scanState.isLoading}
         />
       </div>
-      {scanState.error ? (
+        {scanState.error ? (
         <div className="animate-fade-in">
           <ErrorMessage 
             message={scanState.error}
             onRetry={handleRetry}
           />
         </div>
-      ) : (
+        ) : (
         <div className="rounded-2xl p-0">
           <ImageResults
             images={scanState.images}
@@ -102,8 +102,8 @@ function ImageExtractorPage() {
             selectedImages={selectedImages}
           />
         </div>
-      )}
-    </main>
+        )}
+      </main>
   );
 }
 
@@ -116,13 +116,13 @@ function App() {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-neutral-50 to-white">
       <Header />
       <div className="flex-1">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/extractor" element={<><Banner /><ImageExtractorPage /></>} />
-          <Route path="/docs" element={<Docs />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/extractor" element={<><Banner /><ImageExtractorPage /></>} />
+        <Route path="/docs" element={<Docs />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+      </Routes>
       </div>
       <Footer />
     </div>

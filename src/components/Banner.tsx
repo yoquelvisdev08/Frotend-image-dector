@@ -45,7 +45,7 @@ export const Banner = () => {
                 <circle cx="24" cy="24" r="4" fill="#6366f1" stroke="#fff" strokeWidth="2"/>
                 <rect x="18" y="14" width="4" height="4" rx="2" fill="#6366f1" />
                 <rect x="26" y="30" width="8" height="4" rx="2" fill="#6366f1" />
-              </svg>
+            </svg>
             </span>
             <h1 className="text-4xl font-bold text-white drop-shadow-lg">Snaplyzer Extractor</h1>
           </div>

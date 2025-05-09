@@ -5,14 +5,14 @@
 @layer base {
   body {
     @apply m-0 p-0 font-sans antialiased;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
     @apply w-screen min-h-screen overflow-x-hidden;
-  }
+}
 
   #root {
     @apply w-full min-h-screen;
-  }
+}
 }
 
 @layer components {
@@ -22,23 +22,23 @@
 
   .main-content {
     @apply flex-1 w-full max-w-[1400px] mx-auto px-8 flex flex-col gap-12;
-  }
+}
 
   .card {
     @apply bg-white rounded-2xl shadow-md p-8 mb-8;
-  }
+}
 
   .button {
     @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-200 cursor-pointer border-none text-base;
-  }
+}
 
   .button-primary {
     @apply bg-primary text-white hover:bg-primary-dark;
-  }
+}
 
   .button-secondary {
     @apply bg-white text-primary border border-primary hover:bg-primary hover:text-white;
-  }
+}
 
   .input {
     @apply w-full px-4 py-3 border border-neutral-300 rounded-lg text-base transition-all duration-200;

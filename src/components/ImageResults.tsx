@@ -21,6 +21,17 @@ export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages 
   const [downloading, setDownloading] = useState(false);
   const [allSelected, setAllSelected] = useState(false);
 
+  // Filtrar imágenes duplicadas basadas en la URL
+  const uniqueImages = React.useMemo(() => {
+    const seen = new Set<string>();
+    return images.filter(img => {
+      const normalizedUrl = img.src.toLowerCase().split('?')[0];
+      if (seen.has(normalizedUrl)) return false;
+      seen.add(normalizedUrl);
+      return true;
+    });
+  }, [images]);
+
   const toggleImageSelection = (imageId: string) => {
     const newSelection = new Set(selectedImages);
     if (newSelection.has(imageId)) {
@@ -33,10 +44,10 @@ export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages 
 
   const toggleSelectAll = () => {
     if (allSelected) {
-      images.forEach(img => onImageSelect(img.id)); // Deselecciona todas
+      uniqueImages.forEach(img => onImageSelect(img.id)); // Deselecciona todas
       setAllSelected(false);
     } else {
-      images.forEach(img => {
+      uniqueImages.forEach(img => {
         if (!selectedImages.has(img.id)) onImageSelect(img.id);
       });
       setAllSelected(true);
@@ -44,7 +55,7 @@ export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages 
   };
 
   const handleDownloadSelected = async () => {
-    const selectedImagesArray = images.filter(img => selectedImages.has(img.id));
+    const selectedImagesArray = uniqueImages.filter(img => selectedImages.has(img.id));
     if (selectedImagesArray.length === 0) return;
     setDownloading(true);
     try {
@@ -94,13 +105,13 @@ export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages 
     return <LoadingSpinner message="Buscando imágenes..." />;
   }
 
-  if (images.length === 0) {
+  if (uniqueImages.length === 0) {
     return <EmptyState />;
   }
 
   return (
     <>
-      {images.length > 0 && (
+      {uniqueImages.length > 0 && (
         <div className="flex flex-wrap gap-4 mb-6">
           <button 
             className={`relative px-6 py-3 rounded-lg font-medium text-white transition-all duration-200 overflow-hidden ${
@@ -132,24 +143,24 @@ export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages 
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary-dark/10 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
             <span className="relative z-10">
-              {allSelected ? 'Deseleccionar todo' : 'Seleccionar todo'}
+            {allSelected ? 'Deseleccionar todo' : 'Seleccionar todo'}
             </span>
           </button>
         </div>
-      )}
+        )}
       <div className="rounded-2xl p-6 bg-white">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {images.slice(0, visibleCount).map(image => (
-            <ImageCard
-              key={image.id}
-              image={image}
-              selected={selectedImages.has(image.id)}
-              onSelect={() => toggleImageSelection(image.id)}
-              onView={() => setModalImage(image)}
-            />
-          ))}
-        </div>
-        {visibleCount < images.length && (
+          {uniqueImages.slice(0, visibleCount).map(image => (
+          <ImageCard
+            key={image.id}
+            image={image}
+            selected={selectedImages.has(image.id)}
+            onSelect={() => toggleImageSelection(image.id)}
+            onView={() => setModalImage(image)}
+          />
+        ))}
+      </div>
+        {visibleCount < uniqueImages.length && (
           <div className="mt-8 text-center">
             <button 
               className="relative px-6 py-3 rounded-lg font-medium text-primary border border-primary hover:bg-primary hover:text-white transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5"

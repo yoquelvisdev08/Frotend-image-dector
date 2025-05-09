@@ -16,10 +16,10 @@ const AppHeader = () => {
         <div className="flex items-center gap-3 group cursor-pointer" onClick={() => navigate('/')}>
           <div className="transform group-hover:scale-110 transition-transform duration-300">
             <svg width="32" height="32" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-lg">
-              <rect x="2" y="2" width="34" height="34" rx="8" fill="#fff" stroke="#6c63ff" strokeWidth="3"/>
-              <circle cx="19" cy="19" r="8" fill="#6c63ff" stroke="#fff" strokeWidth="2"/>
-              <path d="M10 28 Q19 14 28 28" stroke="#6c63ff" strokeWidth="2.5" fill="none"/>
-              <circle cx="19" cy="19" r="2.5" fill="#fff"/>
+            <rect x="2" y="2" width="34" height="34" rx="8" fill="#fff" stroke="#6c63ff" strokeWidth="3"/>
+            <circle cx="19" cy="19" r="8" fill="#6c63ff" stroke="#fff" strokeWidth="2"/>
+            <path d="M10 28 Q19 14 28 28" stroke="#6c63ff" strokeWidth="2.5" fill="none"/>
+            <circle cx="19" cy="19" r="2.5" fill="#fff"/>
             </svg>
           </div>
           <span className="font-extrabold text-[1.35rem] tracking-wider text-white group-hover:text-neutral-100 transition-colors duration-300">
@@ -43,6 +43,6 @@ const AppHeader = () => {
       </div>
     </header>
   );
-};
+}; 
 
 export default AppHeader; 

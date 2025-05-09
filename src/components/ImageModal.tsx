@@ -94,7 +94,7 @@ export const ImageModal: React.FC<ImageModalProps> = ({ image, onClose }) => {
                 {domain}
               </span>
             )}
-            {image.width && image.height && image.width > 1 && image.height > 1 && (
+              {image.width && image.height && image.width > 1 && image.height > 1 && (
               <span className="whitespace-nowrap bg-neutral-100 rounded px-2 py-0.5 text-xs font-medium">
                 {image.width}x{image.height}px
               </span>
@@ -104,8 +104,8 @@ export const ImageModal: React.FC<ImageModalProps> = ({ image, onClose }) => {
             {typeof image.top === 'number' && <span>Posición vertical: {image.top}px</span>}
             {typeof image.selected === 'boolean' && (
               <span className="ml-2">{image.selected ? 'Seleccionada' : 'No seleccionada'}</span>
-            )}
-          </div>
+              )}
+            </div>
           <div className="flex flex-wrap gap-3 mb-4">
             <a 
               href={image.src} 
@@ -133,8 +133,8 @@ export const ImageModal: React.FC<ImageModalProps> = ({ image, onClose }) => {
               onClick={handleCopy}
             >
               <FiCopy />
-              Copiar URL
-            </button>
+                Copiar URL
+              </button>
           </div>
           <div className="mb-4">
             <label className="block text-sm font-medium text-neutral-700 mb-2">

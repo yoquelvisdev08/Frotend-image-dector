@@ -77,7 +77,7 @@ export const SearchForm = ({ onSubmit, isLoading }: SearchFormProps) => {
       </form>
       <div className="mt-7 flex flex-wrap items-center gap-2 text-neutral-400 text-sm w-full">
         <span className="mr-2">Sitios populares:</span>
-        {['unsplash.com', 'pexels.com', 'pixabay.com'].map((site) => (
+        {['https://unsplash.com', 'https://pexels.com', 'https://pixabay.com'].map((site) => (
           <button 
             key={site}
             onClick={() => setUrl(site)}
