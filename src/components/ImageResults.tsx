@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ImageCard } from './ImageCard';
 import { ImageModal } from './ImageModal';
-import '../styles/ImageResults.css';
 import { EmptyState } from './EmptyState';
 import { LoadingSpinner } from './LoadingSpinner';
 import { ImageData } from '../services/api';
@@ -102,41 +101,72 @@ export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages 
   return (
     <>
       {images.length > 0 && (
-        <div className="gallery-toolbar">
-          <button className="toolbar-btn download" onClick={handleDownloadSelected} disabled={downloading || selectedImages.size === 0}>
-            {downloading ? 'Preparando descarga...' : `Descargar Seleccionadas (${selectedImages.size})`}
+        <div className="flex flex-wrap gap-4 mb-6">
+          <button 
+            className={`relative px-6 py-3 rounded-lg font-medium text-white transition-all duration-200 overflow-hidden ${
+              downloading || selectedImages.size === 0
+                ? 'bg-neutral-300 cursor-not-allowed'
+                : 'bg-primary hover:bg-primary-dark shadow-lg hover:shadow-xl hover:-translate-y-0.5'
+            }`}
+            onClick={handleDownloadSelected} 
+            disabled={downloading || selectedImages.size === 0}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-dark opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative z-10 flex items-center gap-2">
+              {downloading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <span>Preparando descarga...</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-lg">📥</span>
+                  <span>Descargar Seleccionadas ({selectedImages.size})</span>
+                </>
+              )}
+            </div>
           </button>
-          <button className="toolbar-btn select-all" onClick={toggleSelectAll}>
-            {allSelected ? 'Deseleccionar todo' : 'Seleccionar todo'}
+          <button 
+            className="relative px-6 py-3 rounded-lg font-medium text-primary border border-primary hover:bg-primary hover:text-white transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+            onClick={toggleSelectAll}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary-dark/10 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+            <span className="relative z-10">
+              {allSelected ? 'Deseleccionar todo' : 'Seleccionar todo'}
+            </span>
           </button>
         </div>
-        )}
-      <div className="gallery-bg">
-      <div className="images-grid">
+      )}
+      <div className="rounded-2xl p-6 bg-white">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {images.slice(0, visibleCount).map(image => (
-          <ImageCard
-            key={image.id}
-            image={image}
-            selected={selectedImages.has(image.id)}
-            onSelect={() => toggleImageSelection(image.id)}
+            <ImageCard
+              key={image.id}
+              image={image}
+              selected={selectedImages.has(image.id)}
+              onSelect={() => toggleImageSelection(image.id)}
               onView={() => setModalImage(image)}
-          />
-        ))}
-      </div>
+            />
+          ))}
+        </div>
         {visibleCount < images.length && (
-          <div className="see-more-container">
-            <button className="see-more-btn" onClick={() => setVisibleCount(visibleCount + PAGE_SIZE)}>
-              Ver más
+          <div className="mt-8 text-center">
+            <button 
+              className="relative px-6 py-3 rounded-lg font-medium text-primary border border-primary hover:bg-primary hover:text-white transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+              onClick={() => setVisibleCount(visibleCount + PAGE_SIZE)}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary-dark/10 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+              <span className="relative z-10">Ver más</span>
             </button>
           </div>
         )}
+      </div>
       {modalImage && (
         <ImageModal
           image={modalImage}
           onClose={() => setModalImage(null)}
         />
       )}
-    </div>
     </>
   );
 }; 

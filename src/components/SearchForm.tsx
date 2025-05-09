@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../styles/SearchForm.css';
 
 interface SearchFormProps {
   onSubmit: (url: string) => void;
@@ -33,44 +32,60 @@ export const SearchForm = ({ onSubmit, isLoading }: SearchFormProps) => {
   };
 
   return (
-    <div className="search-container">
-      <form onSubmit={handleSubmit} className="search-form">
-        <div className="input-group">
-          <div className="url-field">
+    <div className="w-full max-w-2xl mx-auto bg-white rounded-3xl px-8 py-10 flex flex-col items-center justify-center -mt-20 z-20 relative">
+      <form onSubmit={handleSubmit} className="w-full">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-1 relative">
             <input
               type="url"
               value={url}
               onChange={handleUrlChange}
               placeholder="https://example.com"
               required
-              className={!isValid ? 'invalid' : ''}
+              className={`w-full px-5 py-4 rounded-2xl bg-neutral-50 shadow focus:shadow-lg text-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/30 border-none ${
+                !isValid ? 'ring-2 ring-accent-error' : ''
+              }`}
             />
-            {!isValid && <span className="error-message">URL inválida</span>}
+            {!isValid && (
+              <span className="absolute -bottom-6 left-0 text-sm text-accent-error animate-shake">
+                URL inválida
+              </span>
+            )}
           </div>
           <button 
             type="submit" 
-            className="scan-button"
             disabled={isLoading || !url || !isValid}
+            className={`px-8 py-4 rounded-2xl font-semibold text-white text-lg transition-all duration-200 flex items-center justify-center gap-2 min-w-[170px] shadow bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary focus:outline-none focus:ring-2 focus:ring-primary/30 active:scale-95 ${
+              isLoading || !url || !isValid
+                ? 'opacity-60 cursor-not-allowed'
+                : 'hover:shadow-xl'
+            }`}
           >
             {isLoading ? (
               <>
-                <span className="spinner"></span>
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 <span>Escaneando...</span>
               </>
             ) : (
               <>
-                <span className="icon">🔍</span>
+                <span className="text-lg">🔍</span>
                 <span>Buscar Imágenes</span>
               </>
             )}
           </button>
         </div>
       </form>
-      <div className="popular-sites">
-        <span>Sitios populares:</span>
-        <button onClick={() => setUrl('unsplash.com')}>unsplash.com</button>
-        <button onClick={() => setUrl('pexels.com')}>pexels.com</button>
-        <button onClick={() => setUrl('pixabay.com')}>pixabay.com</button>
+      <div className="mt-7 flex flex-wrap items-center gap-2 text-neutral-400 text-sm w-full">
+        <span className="mr-2">Sitios populares:</span>
+        {['unsplash.com', 'pexels.com', 'pixabay.com'].map((site) => (
+          <button 
+            key={site}
+            onClick={() => setUrl(site)}
+            className="px-3 py-1 rounded-full bg-neutral-100 hover:bg-neutral-200 transition-all duration-200 text-neutral-600 border border-neutral-200 text-xs font-medium shadow-sm"
+          >
+            {site}
+          </button>
+        ))}
       </div>
     </div>
   );

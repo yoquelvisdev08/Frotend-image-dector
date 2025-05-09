@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/ErrorMessage.css';
+// import '../styles/ErrorMessage.css';
 
 interface ErrorMessageProps {
   message: string;
@@ -7,9 +7,9 @@ interface ErrorMessageProps {
 
 export const ErrorMessage = ({ message }: ErrorMessageProps) => {
   return (
-    <div className="error-container">
-      <div className="error-icon">⚠️</div>
-      <p className="error-text">{message}</p>
+    <div className="flex items-center gap-3 p-4 bg-accent-error/10 border border-accent-error rounded-lg my-4">
+      <div className="text-2xl">⚠️</div>
+      <p className="text-accent-error text-base font-medium m-0">{message}</p>
     </div>
   );
 }; 

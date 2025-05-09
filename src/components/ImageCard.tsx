@@ -1,6 +1,5 @@
 import React from 'react';
 import { ImageData } from '../services/api';
-import '../styles/ImageCard.css';
 import { MdCheckCircle, MdAddCircleOutline } from 'react-icons/md';
 import { FiDownload } from 'react-icons/fi';
 
@@ -29,17 +28,22 @@ export const ImageCard = ({ image, selected, onSelect, onView }: ImageCardProps)
 
   return (
     <div 
-      className={`gallery-card${selected ? ' selected' : ''}`}
+      className={`group relative bg-white rounded-xl shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md ${
+        selected ? 'ring-2 ring-primary' : ''
+      }`}
       onClick={onView}
       tabIndex={0}
       role="button"
       aria-label="Ver detalles de la imagen"
-      style={{ cursor: 'pointer' }}
     >
-      <div className="gallery-img-container">
-        <img src={image.src} alt={image.alt || 'Imagen'} className="gallery-img" />
+      <div className="relative aspect-square">
+        <img 
+          src={image.src} 
+          alt={image.alt || 'Imagen'} 
+          className="w-full h-full object-cover"
+        />
         <button 
-          className="gallery-download-btn"
+          className="absolute top-2 right-2 p-2 bg-white/90 rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white"
           onClick={(e) => {
             stopPropagation(e);
             window.open(`/api/download?url=${encodeURIComponent(image.src)}`, '_blank');
@@ -47,30 +51,45 @@ export const ImageCard = ({ image, selected, onSelect, onView }: ImageCardProps)
           title="Descargar"
           aria-label="Descargar imagen"
         >
-          <FiDownload size={26} color="#1976d2" />
+          <FiDownload size={20} className="text-primary" />
         </button>
         <button
-          className={`gallery-select-btn${selected ? ' selected' : ''}`}
+          className={`absolute top-2 left-2 p-1 rounded-full transition-all duration-200 ${
+            selected 
+              ? 'bg-primary text-white' 
+              : 'bg-white/90 text-primary hover:bg-white'
+          }`}
           onClick={e => { stopPropagation(e); onSelect(); }}
           title={selected ? 'Quitar selección' : 'Seleccionar'}
           aria-label={selected ? 'Quitar selección' : 'Seleccionar'}
           type="button"
         >
           {selected ? (
-            <MdCheckCircle size={32} color="#fff" />
+            <MdCheckCircle size={24} />
           ) : (
-            <MdAddCircleOutline size={32} color="#1976d2" />
+            <MdAddCircleOutline size={24} />
           )}
         </button>
       </div>
-      <div className="gallery-card-footer">
+      <div className="p-3">
         {image.alt && image.alt !== 'Imagen sin descripción' && (
-          <div className="gallery-card-alt" title={image.alt}>{image.alt}</div>
+          <div 
+            className="text-sm text-neutral-700 line-clamp-2 mb-2" 
+            title={image.alt}
+          >
+            {image.alt}
+          </div>
         )}
-        <div className="gallery-card-meta">
-          {domain && <span className="gallery-card-domain">{domain}</span>}
+        <div className="flex items-center justify-between text-xs text-neutral-500">
+          {domain && (
+            <span className="truncate max-w-[60%]" title={domain}>
+              {domain}
+            </span>
+          )}
           {image.width && image.height && image.width > 1 && image.height > 1 && (
-            <span className="gallery-card-dimensions">{image.width}x{image.height}px</span>
+            <span className="ml-2 whitespace-nowrap">
+              {image.width}x{image.height}px
+            </span>
           )}
         </div>
       </div>
