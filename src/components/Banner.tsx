@@ -1,9 +1,41 @@
 import React from 'react';
+import Particles from 'react-tsparticles';
+import type { Engine } from 'tsparticles-engine';
+import { loadFull } from 'tsparticles';
 import '../styles/Header.css';
 
 export const Banner = () => {
+  // Opcional: configuración avanzada de partículas
+  const particlesInit = async (engine: Engine) => {
+    await loadFull(engine);
+  };
+
   return (
     <section className="header" style={{position: 'relative', overflow: 'hidden'}}>
+      {/* Fondo animado con partículas */}
+      <Particles
+        id="tsparticles-banner"
+        init={particlesInit}
+        options={{
+          background: { color: { value: 'transparent' } },
+          fpsLimit: 60,
+          particles: {
+            color: { value: 'var(--primary-light)' },
+            links: {
+              enable: true,
+              color: 'var(--primary-color)',
+              opacity: 0.15,
+              width: 1.2,
+            },
+            move: { enable: true, speed: 1.2 },
+            number: { value: 35 },
+            opacity: { value: 0.18 },
+            size: { value: 3.5 },
+          },
+          detectRetina: true,
+        }}
+        style={{position: 'absolute', inset: 0, zIndex: 0}}
+      />
       <div className="header-background">
         <div className="gradient-overlay"></div>
         <div className="pattern-overlay"></div>

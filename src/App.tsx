@@ -73,25 +73,25 @@ function ImageExtractorPage() {
   };
 
   return (
-    <main className="main-content">
-      <SearchForm 
-        onSubmit={handleScan}
-        isLoading={scanState.isLoading}
-      />
-      {scanState.error ? (
-        <ErrorMessage 
-          message={scanState.error}
-          onRetry={handleRetry}
-        />
-      ) : (
-        <ImageResults
-          images={scanState.images}
+      <main className="main-content">
+        <SearchForm 
+          onSubmit={handleScan}
           isLoading={scanState.isLoading}
-          onImageSelect={handleImageSelect}
-          selectedImages={selectedImages}
         />
-      )}
-    </main>
+        {scanState.error ? (
+          <ErrorMessage 
+            message={scanState.error}
+            onRetry={handleRetry}
+          />
+        ) : (
+          <ImageResults
+            images={scanState.images}
+            isLoading={scanState.isLoading}
+            onImageSelect={handleImageSelect}
+            selectedImages={selectedImages}
+          />
+        )}
+      </main>
   );
 }
 

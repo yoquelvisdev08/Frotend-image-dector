@@ -1,5 +1,4 @@
 body, .gallery-bg, .results-container, .images-grid {
-  background: var(--main-bg, #6c63ff) !important;
 }
 
 .results-container {
@@ -7,7 +6,6 @@ body, .gallery-bg, .results-container, .images-grid {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  background: var(--main-bg, #6c63ff) !important;
 }
 
 .results-header {
@@ -96,7 +94,6 @@ body, .gallery-bg, .results-container, .images-grid {
   padding: 20px 0 0 0;
   max-width: 1200px;
   margin: 0 auto;
-  background: var(--main-bg, #6c63ff) !important;
 }
 
 .download-selected-button {
@@ -154,7 +151,6 @@ body, .gallery-bg, .results-container, .images-grid {
 
 .gallery-bg {
   padding-top: 70px;
-  background: var(--main-bg, #6c63ff) !important;
 }
 
 .toolbar-btn {

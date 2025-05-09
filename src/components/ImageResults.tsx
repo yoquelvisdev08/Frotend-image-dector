@@ -110,19 +110,19 @@ export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages 
             {allSelected ? 'Deseleccionar todo' : 'Seleccionar todo'}
           </button>
         </div>
-      )}
+        )}
       <div className="gallery-bg">
-        <div className="images-grid">
+      <div className="images-grid">
           {images.slice(0, visibleCount).map(image => (
-            <ImageCard
-              key={image.id}
-              image={image}
-              selected={selectedImages.has(image.id)}
-              onSelect={() => toggleImageSelection(image.id)}
+          <ImageCard
+            key={image.id}
+            image={image}
+            selected={selectedImages.has(image.id)}
+            onSelect={() => toggleImageSelection(image.id)}
               onView={() => setModalImage(image)}
-            />
-          ))}
-        </div>
+          />
+        ))}
+      </div>
         {visibleCount < images.length && (
           <div className="see-more-container">
             <button className="see-more-btn" onClick={() => setVisibleCount(visibleCount + PAGE_SIZE)}>
@@ -130,13 +130,13 @@ export const ImageResults = ({ images, isLoading, onImageSelect, selectedImages 
             </button>
           </div>
         )}
-        {modalImage && (
-          <ImageModal
-            image={modalImage}
-            onClose={() => setModalImage(null)}
-          />
-        )}
-      </div>
+      {modalImage && (
+        <ImageModal
+          image={modalImage}
+          onClose={() => setModalImage(null)}
+        />
+      )}
+    </div>
     </>
   );
 }; 

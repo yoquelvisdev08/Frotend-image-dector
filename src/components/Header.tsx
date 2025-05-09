@@ -17,7 +17,7 @@ const AppHeader = () => {
             <circle cx="19" cy="19" r="8" fill="#6c63ff" stroke="#fff" strokeWidth="2"/>
             <path d="M10 28 Q19 14 28 28" stroke="#6c63ff" strokeWidth="2.5" fill="none"/>
             <circle cx="19" cy="19" r="2.5" fill="#fff"/>
-          </svg>
+            </svg>
           <span style={{fontWeight: 800, fontSize: '1.35rem', letterSpacing: '1px', color: '#fff'}}>Snaplyzer Extractor</span>
         </div>
         <nav style={{display: 'flex', alignItems: 'center', gap: 16}}>
@@ -27,6 +27,6 @@ const AppHeader = () => {
       </div>
     </header>
   );
-};
+}; 
 
 export default AppHeader; 

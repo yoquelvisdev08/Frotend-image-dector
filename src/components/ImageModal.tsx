@@ -50,7 +50,7 @@ export const ImageModal: React.FC<ImageModalProps> = ({ image, onClose }) => {
                 Copiar URL
               </button>
               {copied && <span className="copy-feedback">¡URL copiada!</span>}
-            </div>
+              </div>
           </div>
           <div className="modal-image-container">
             <img src={image.src} alt={image.alt || 'Imagen'} className="modal-image" />

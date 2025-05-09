@@ -28,7 +28,7 @@ export const ImageCard = ({ image, selected, onSelect, onView }: ImageCardProps)
   })();
 
   return (
-    <div
+    <div 
       className={`gallery-card${selected ? ' selected' : ''}`}
       onClick={onView}
       tabIndex={0}
