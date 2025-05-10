@@ -14,26 +14,12 @@ import Docs from './pages/Docs';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Header from './components/Header';
+import HomePage from './pages/HomePage';
 
 interface ScanState {
   isLoading: boolean;
   error: string | null;
   images: ImageData[];
-}
-
-function HomePage() {
-  return (
-    <main className="min-h-[60vh] flex items-center justify-center">
-      <div className="text-center space-y-4">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
-      Hello World
-        </h1>
-        <p className="text-neutral-500 text-lg">
-          Bienvenido a tu detector de imágenes
-        </p>
-      </div>
-    </main>
-  );
 }
 
 function ImageExtractorPage() {

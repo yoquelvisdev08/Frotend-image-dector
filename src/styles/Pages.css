@@ -1,53 +1,91 @@
 .page-container {
-  max-width: 800px;
-  margin: 48px auto 48px auto;
-  padding: 2.5rem 2rem 2.5rem 2rem;
-  background: rgba(255,255,255,0.97);
-  border-radius: 22px;
-  box-shadow: 0 4px 32px rgba(25, 118, 210, 0.10), 0 1.5px 8px rgba(0,0,0,0.04);
-  color: #222;
-  font-size: 1.13rem;
-  line-height: 1.7;
+  max-width: 900px;
+  margin: 48px auto;
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(25, 118, 210, 0.12), 0 2px 8px rgba(0,0,0,0.06);
+  color: #1a1a1a;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #6366F1, #06b6d4, #a21caf);
 }
 
 .page-container h1 {
-  font-size: 2.3rem;
+  font-size: 2.5rem;
   font-weight: 800;
-  color: #1976d2;
-  margin-bottom: 1.5rem;
-  letter-spacing: -1px;
+  background: linear-gradient(90deg, #6366F1, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
+  letter-spacing: -0.5px;
 }
 
 .page-container h2 {
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #1976d2;
-  margin-top: 2.2rem;
-  margin-bottom: 0.7rem;
+  color: #6366F1;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(99, 102, 241, 0.1);
+}
+
+.page-container p {
+  margin-bottom: 1.2rem;
+  color: #374151;
 }
 
 .page-container ul, .page-container ol {
-  margin-left: 1.5rem;
-  margin-bottom: 1.2rem;
+  margin: 1.2rem 0;
+  padding-left: 1.5rem;
 }
 
 .page-container li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+  color: #374151;
 }
 
 .page-container b {
-  color: #125ea2;
+  color: #6366F1;
+  font-weight: 600;
 }
 
-@media (max-width: 600px) {
+.page-container a {
+  color: #06b6d4;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(6, 182, 212, 0.3);
+  transition: all 0.2s ease;
+}
+
+.page-container a:hover {
+  color: #0891b2;
+  border-bottom-color: #0891b2;
+}
+
+@media (max-width: 768px) {
   .page-container {
-    padding: 1.2rem 0.5rem;
-    font-size: 1rem;
+    margin: 24px 16px;
+    padding: 2rem 1.5rem;
+    font-size: 1.05rem;
   }
+  
   .page-container h1 {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
+  
   .page-container h2 {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
 } 
