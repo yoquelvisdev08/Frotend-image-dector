@@ -24,10 +24,43 @@ export const api = {
     return response.data;
   },
 
-  // Escanear imágenes de una URL
-  scanImages: async (url: string): Promise<ScanResponse> => {
-    const response = await axios.post(`${API_URL}/scan`, { targetUrl: url });
-    return response.data;
+  // Escanear imágenes de una URL usando el endpoint de Thanos o Scan
+  scanImages: async (url: string, mode: 'scan' | 'thanos' = 'scan'): Promise<ScanResponse> => {
+    const endpoint = mode === 'scan' ? '/scan' : '/thanos';
+    const response = await axios.post(`${API_URL}${endpoint}`, { targetUrl: url });
+    
+    // Mapear la respuesta según el endpoint
+    if (mode === 'scan') {
+      // Formato original de /scan
+      return response.data;
+    } else {
+      // Formato de Thanos
+      const mappedImages = [
+        ...response.data.regular.map((img: any, index: number) => ({
+          id: `img-${index}`,
+          src: img.src,
+          alt: img.alt || '',
+          width: img.width,
+          height: img.height,
+          top: 0,
+          selected: false
+        })),
+        ...response.data.background.map((src: string, index: number) => ({
+          id: `bg-${index}`,
+          src,
+          alt: 'Background Image',
+          width: 0,
+          height: 0,
+          top: 0,
+          selected: false
+        }))
+      ];
+
+      return {
+        images: mappedImages,
+        url
+      };
+    }
   },
 
   // Obtener imagen a través del proxy

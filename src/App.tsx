@@ -10,11 +10,12 @@ import { Footer } from './components/Footer';
 import { ErrorMessage } from './components/ErrorMessage';
 import { api, type ImageData } from './services/api';
 import { Routes, Route } from 'react-router-dom';
-import Docs from './pages/Docs';
-import Privacy from './pages/Privacy';
-import Terms from './pages/Terms';
+import PrivacyPage from './pages/PrivacyPage';
+import TermsPage from './pages/TermsPage';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
+import PricingPage from './pages/PricingPage';
+import Documentation from './pages/Documentation';
 
 interface ScanState {
   isLoading: boolean;
@@ -105,9 +106,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/extractor" element={<><Banner /><ImageExtractorPage /></>} />
-        <Route path="/docs" element={<Docs />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/terms" element={<Terms />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/documentation" element={<Documentation />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
       </Routes>
       </div>
       <Footer />

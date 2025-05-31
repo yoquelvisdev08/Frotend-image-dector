@@ -1,11 +1,17 @@
 import React from 'react';
 import Particles from 'react-tsparticles';
-import type { Engine } from 'tsparticles-engine';
-import { loadFull } from 'tsparticles';
+import { loadFull } from "tsparticles";
+import type { Container, Engine } from "tsparticles-engine";
 
 export const Banner = () => {
   const particlesInit = async (engine: Engine) => {
+    // Cargar el plugin completo
     await loadFull(engine);
+  };
+
+  const particlesLoaded = async (container?: Container) => {
+    // Opcional: hacer algo cuando las partículas están listas
+    console.log("Partículas cargadas:", container);
   };
 
   return (
@@ -14,6 +20,7 @@ export const Banner = () => {
       <Particles
         id="tsparticles-banner"
         init={particlesInit}
+        loaded={particlesLoaded}
         options={{
           background: { color: { value: 'transparent' } },
           fpsLimit: 60,

@@ -1,8 +1,35 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { 
+  FaHome, 
+  FaImage, 
+  FaBook, 
+  FaClipboardList,
+  FaMoneyBillWave 
+} from 'react-icons/fa';
 
-const AppHeader = () => {
+const Header: React.FC = () => {
   const navigate = useNavigate();
+
+  const navItems = [
+    { 
+      label: 'Inicio', 
+      path: '/', 
+      icon: <FaHome className="text-lg" /> 
+    },
+    { 
+      label: 'Extractor', 
+      path: '/extractor', 
+      icon: <FaImage className="text-lg" /> 
+    },
+
+    { 
+      label: 'Planes', 
+      path: '/pricing', 
+      icon: <FaMoneyBillWave className="text-lg" /> 
+    }
+  ];
+
   return (
     <header className="relative min-h-[80px] w-full p-0 box-border bg-gradient-to-r from-primary via-primary-light to-primary-dark text-white overflow-hidden shadow-lg">
       {/* Fondo gradiente y patrón de puntos */}
@@ -16,10 +43,10 @@ const AppHeader = () => {
         <div className="flex items-center gap-3 group cursor-pointer" onClick={() => navigate('/')}>
           <div className="transform group-hover:scale-110 transition-transform duration-300">
             <svg width="32" height="32" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-lg">
-            <rect x="2" y="2" width="34" height="34" rx="8" fill="#fff" stroke="#6c63ff" strokeWidth="3"/>
-            <circle cx="19" cy="19" r="8" fill="#6c63ff" stroke="#fff" strokeWidth="2"/>
-            <path d="M10 28 Q19 14 28 28" stroke="#6c63ff" strokeWidth="2.5" fill="none"/>
-            <circle cx="19" cy="19" r="2.5" fill="#fff"/>
+              <rect x="2" y="2" width="34" height="34" rx="8" fill="#fff" stroke="#6c63ff" strokeWidth="3"/>
+              <circle cx="19" cy="19" r="8" fill="#6c63ff" stroke="#fff" strokeWidth="2"/>
+              <path d="M10 28 Q19 14 28 28" stroke="#6c63ff" strokeWidth="2.5" fill="none"/>
+              <circle cx="19" cy="19" r="2.5" fill="#fff"/>
             </svg>
           </div>
           <span className="font-extrabold text-[1.35rem] tracking-wider text-white group-hover:text-neutral-100 transition-colors duration-300">
@@ -27,22 +54,20 @@ const AppHeader = () => {
           </span>
         </div>
         <nav className="flex items-center gap-6">
-          <button 
-            className="relative px-4 py-2 font-semibold text-white hover:text-neutral-100 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
-            onClick={() => navigate('/')}
-          >
-            Homepage
-          </button>
-          <button 
-            className="relative px-4 py-2 font-semibold text-white hover:text-neutral-100 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
-            onClick={() => navigate('/extractor')}
-          >
-            Image Extractor
-          </button>
+          {navItems.map((item) => (
+            <button 
+              key={item.path}
+              className="relative px-4 py-2 font-semibold text-white hover:text-neutral-100 transition-colors duration-300 flex items-center gap-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
+              onClick={() => navigate(item.path)}
+            >
+              {item.icon}
+              <span>{item.label}</span>
+            </button>
+          ))}
         </nav>
       </div>
     </header>
   );
-}; 
+};
 
-export default AppHeader; 
+export default Header; 

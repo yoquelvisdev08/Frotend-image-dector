@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaShieldAlt, FaLock, FaUserSecret, FaClipboardCheck } from 'react-icons/fa';
 
-export const PrivacyPage = () => {
+const PrivacyPage = () => {
   const privacySections = [
     {
       icon: <FaShieldAlt className="text-primary text-4xl" />,
@@ -82,4 +82,6 @@ export const PrivacyPage = () => {
       </div>
     </div>
   );
-}; 
+};
+
+export default PrivacyPage; 

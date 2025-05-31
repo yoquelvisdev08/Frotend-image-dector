@@ -1,28 +1,33 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaShieldAlt, FaLock, FaUserSecret, FaClipboardCheck } from 'react-icons/fa';
+import { 
+  FaBalanceScale, 
+  FaHandshake, 
+  FaExclamationTriangle, 
+  FaCheckCircle 
+} from 'react-icons/fa';
 
-export const PrivacyPage = () => {
-  const privacySections = [
+const TermsPage = () => {
+  const termsSections = [
     {
-      icon: <FaShieldAlt className="text-primary text-4xl" />,
-      title: 'Protección de Datos',
-      description: 'En Snaplyzer, tu privacidad es nuestra prioridad. Nos comprometemos a proteger tu información personal con los más altos estándares de seguridad.'
+      icon: <FaBalanceScale className="text-primary text-4xl" />,
+      title: 'Uso Aceptable',
+      description: 'Snaplyzer se compromete a proporcionar una herramienta ética para la extracción de imágenes. Queda prohibido el uso de nuestra plataforma para fines ilegales o que violen derechos de autor.'
     },
     {
-      icon: <FaLock className="text-primary text-4xl" />,
-      title: 'Recopilación de Información',
-      description: 'Solo recopilamos la información estrictamente necesaria para proporcionar nuestro servicio de extracción de imágenes. No almacenamos URLs ni imágenes de forma permanente.'
+      icon: <FaHandshake className="text-primary text-4xl" />,
+      title: 'Responsabilidad del Usuario',
+      description: 'El usuario es responsable de garantizar que tiene los derechos necesarios para extraer y utilizar las imágenes. Snaplyzer no se hace responsable del uso indebido de la herramienta.'
     },
     {
-      icon: <FaUserSecret className="text-primary text-4xl" />,
-      title: 'Anonimato y Confidencialidad',
-      description: 'Tus búsquedas son completamente anónimas. No vinculamos ninguna búsqueda a una identidad específica y no compartimos información con terceros.'
+      icon: <FaExclamationTriangle className="text-primary text-4xl" />,
+      title: 'Limitaciones',
+      description: 'No nos hacemos responsables de contenido ofensivo, ilegal o inapropiado que pueda ser extraído. Los usuarios deben actuar con responsabilidad y ética.'
     },
     {
-      icon: <FaClipboardCheck className="text-primary text-4xl" />,
-      title: 'Consentimiento y Control',
-      description: 'Tienes control total sobre tus datos. Puedes solicitar la eliminación de cualquier información en cualquier momento contactándonos.'
+      icon: <FaCheckCircle className="text-primary text-4xl" />,
+      title: 'Derechos de Autor',
+      description: 'Respetamos los derechos de autor. Si eres propietario de contenido y deseas que sea removido, contáctanos y tomaremos las medidas correspondientes.'
     }
   ];
 
@@ -36,15 +41,15 @@ export const PrivacyPage = () => {
           className="text-center mb-16"
         >
           <h1 className="text-4xl md:text-5xl font-extrabold text-primary mb-6">
-            Política de Privacidad
+            Términos de Servicio
           </h1>
           <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-            Transparencia, seguridad y respeto por tu información personal
+            Condiciones y responsabilidades para el uso de Snaplyzer
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {privacySections.map((section, index) => (
+          {termsSections.map((section, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -75,11 +80,13 @@ export const PrivacyPage = () => {
             Última Actualización: {new Date().toLocaleDateString()}
           </h2>
           <p className="text-neutral-600 max-w-2xl mx-auto">
-            Nos reservamos el derecho de modificar esta política de privacidad en cualquier momento. 
-            Te recomendamos revisarla periódicamente para estar informado.
+            Nos reservamos el derecho de modificar estos términos de servicio en cualquier momento. 
+            Te recomendamos revisarlos periódicamente para estar informado.
           </p>
         </motion.div>
       </div>
     </div>
   );
-}; 
+};
+
+export default TermsPage; 

@@ -1,28 +1,90 @@
 import React from 'react';
-import '../styles/Pages.css';
+import { motion } from 'framer-motion';
+import { 
+  FaBalanceScale, 
+  FaHandshake, 
+  FaExclamationTriangle, 
+  FaCheckCircle 
+} from 'react-icons/fa';
 
-const Terms = () => (
-  <div className="page-container">
-    <h1>Términos y Condiciones de Uso</h1>
-    <p>
-      Al utilizar <b>Snaplyzer</b> aceptas los siguientes términos y condiciones. Si no estás de acuerdo con alguno de ellos, por favor no utilices la aplicación. Estos términos están diseñados para proteger tanto a los usuarios como a los propietarios de los contenidos.
-    </p>
-    <h2>Uso del servicio</h2>
-    <ul>
-      <li>Snaplyzer es una herramienta para uso personal y educativo.</li>
-      <li>No utilices la aplicación para infringir derechos de autor ni para descargar imágenes de sitios que no lo permitan.</li>
-      <li>No está permitido el uso automatizado o masivo del servicio.</li>
-      <li>Debes respetar las políticas de uso de los sitios web que analices.</li>
-    </ul>
-    <h2>Propiedad intelectual</h2>
-    <p>Las imágenes extraídas pueden estar protegidas por derechos de autor de terceros. Es tu responsabilidad respetar las licencias y condiciones de uso de cada sitio web. Snaplyzer no se hace responsable del uso indebido de las imágenes descargadas.</p>
-    <h2>Limitación de responsabilidad</h2>
-    <p>Snaplyzer no se hace responsable del uso indebido de la herramienta ni de los contenidos descargados por los usuarios. La aplicación se proporciona "tal cual", sin garantías de ningún tipo.</p>
-    <h2>Modificaciones</h2>
-    <p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios serán publicados en esta página. El uso continuado de la aplicación después de los cambios constituye tu aceptación de los nuevos términos.</p>
-    <h2>Contacto</h2>
-    <p>Si tienes dudas sobre estos términos o necesitas aclaraciones adicionales, contáctanos a través del formulario de contacto en la web. Estamos aquí para ayudarte a entender y cumplir con estas condiciones.</p>
-  </div>
-);
+export const TermsPage = () => {
+  const termsSections = [
+    {
+      icon: <FaBalanceScale className="text-primary text-4xl" />,
+      title: 'Uso Aceptable',
+      description: 'Snaplyzer se compromete a proporcionar una herramienta ética para la extracción de imágenes. Queda prohibido el uso de nuestra plataforma para fines ilegales o que violen derechos de autor.'
+    },
+    {
+      icon: <FaHandshake className="text-primary text-4xl" />,
+      title: 'Responsabilidad del Usuario',
+      description: 'El usuario es responsable de garantizar que tiene los derechos necesarios para extraer y utilizar las imágenes. Snaplyzer no se hace responsable del uso indebido de la herramienta.'
+    },
+    {
+      icon: <FaExclamationTriangle className="text-primary text-4xl" />,
+      title: 'Limitaciones',
+      description: 'No nos hacemos responsables de contenido ofensivo, ilegal o inapropiado que pueda ser extraído. Los usuarios deben actuar con responsabilidad y ética.'
+    },
+    {
+      icon: <FaCheckCircle className="text-primary text-4xl" />,
+      title: 'Derechos de Autor',
+      description: 'Respetamos los derechos de autor. Si eres propietario de contenido y deseas que sea removido, contáctanos y tomaremos las medidas correspondientes.'
+    }
+  ];
 
-export default Terms; 
+  return (
+    <div className="min-h-screen bg-neutral-50 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-4xl md:text-5xl font-extrabold text-primary mb-6">
+            Términos de Servicio
+          </h1>
+          <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
+            Condiciones y responsabilidades para el uso de Snaplyzer
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {termsSections.map((section, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <div className="flex items-center mb-4">
+                {section.icon}
+                <h3 className="ml-4 text-xl font-bold text-neutral-800">
+                  {section.title}
+                </h3>
+              </div>
+              <p className="text-neutral-600">
+                {section.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+          className="mt-16 bg-primary/10 rounded-2xl p-8 text-center"
+        >
+          <h2 className="text-2xl font-bold text-primary mb-4">
+            Última Actualización: {new Date().toLocaleDateString()}
+          </h2>
+          <p className="text-neutral-600 max-w-2xl mx-auto">
+            Nos reservamos el derecho de modificar estos términos de servicio en cualquier momento. 
+            Te recomendamos revisarlos periódicamente para estar informado.
+          </p>
+        </motion.div>
+      </div>
+    </div>
+  );
+}; 
