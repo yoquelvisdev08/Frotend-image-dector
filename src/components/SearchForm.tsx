@@ -32,6 +32,10 @@ export const SearchForm = ({ onSubmit, isLoading }: SearchFormProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (url.trim()) {
+      console.log('🔍 Iniciando búsqueda:', {
+        url: url.trim(),
+        mode: scanMode
+      });
       onSubmit(url.trim(), scanMode);
     }
   };

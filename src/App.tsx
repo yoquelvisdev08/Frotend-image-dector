@@ -31,16 +31,22 @@ function ImageExtractorPage() {
   });
   const [selectedImages, setSelectedImages] = useState<Set<string>>(new Set());
 
-  const handleScan = async (url: string) => {
+  const handleScan = async (url: string, mode: 'scan' | 'thanos' = 'scan') => {
     try {
+      console.log('🔬 Iniciando escaneo:', { url, mode });
       setScanState(prev => ({ ...prev, isLoading: true, error: null }));
-      const response = await api.scanImages(url);
+      const response = await api.scanImages(url, mode);
+      console.log('✅ Escaneo completado:', { 
+        imageCount: response.images.length,
+        mode
+      });
       setScanState({
         isLoading: false,
         error: null,
         images: response.images
       });
     } catch (error) {
+      console.error('❌ Error en el escaneo:', error);
       setScanState(prev => ({
         ...prev,
         isLoading: false,
